@@ -23,8 +23,8 @@ int main() {
     PidController pid{cfg};
     AltitudeSystem drone{0.0}; // starts on the ground
 
-    // --- CSV log ---
-    std::ofstream log{"logs/altitude.csv"};
+    // LOG_DIR is injected by CMake at compile time
+    std::ofstream log{LOG_DIR "/altitude.csv"};
     log << "time,setpoint,altitude,velocity,throttle\n";
 
     // --- Simulation loop ---

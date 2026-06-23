@@ -30,6 +30,10 @@ add_executable(pid_sim
 target_include_directories(pid_sim PRIVATE include/)
 
 # ─── Ensure logs directory exists at build time ───────────────────────────────
+# Define the log directory path and pass it to the compiler
+target_compile_definitions(pid_sim PRIVATE
+    LOG_DIR="${CMAKE_BINARY_DIR}/logs"
+)
 add_custom_command(TARGET pid_sim POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory
         ${CMAKE_BINARY_DIR}/logs

@@ -39,8 +39,9 @@ pid-sim-cpp/
 │   ├── PidController.cpp
 │   ├── AltitudeSystem.cpp
 │   └── main.cpp             # Simulation entry point
-└── logs/
-    └── altitude.csv         # Generated on each run
+└── build/                   # generated — not committed
+    └── logs/
+        └── altitude.csv
 ```
 
 ---
@@ -65,7 +66,7 @@ cmake --build .
 ./pid_sim
 ```
 
-Output is written to `logs/altitude.csv`.
+Output is written to `build/logs/altitude.csv`.
 
 ---
 
