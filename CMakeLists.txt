@@ -25,6 +25,7 @@ add_executable(pid_sim
     src/main.cpp
     src/PidController.cpp
     src/AltitudeSystem.cpp
+    src/Config.cpp
 )
 
 target_include_directories(pid_sim PRIVATE include/)
@@ -34,10 +35,19 @@ target_include_directories(pid_sim PRIVATE include/)
 target_compile_definitions(pid_sim PRIVATE
     LOG_DIR="${CMAKE_BINARY_DIR}/logs"
 )
+
 add_custom_command(TARGET pid_sim POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory
         ${CMAKE_BINARY_DIR}/logs
     COMMENT "Creating logs/ directory"
+)
+
+# Copy config.ini to the build directory after each build
+add_custom_command(TARGET pid_sim POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/configs/config.ini
+        ${CMAKE_BINARY_DIR}/config.ini
+    COMMENT "Copying config.ini to build directory"
 )
 
 # ─── Tests ────────────────────────────────────────────────────────────────────

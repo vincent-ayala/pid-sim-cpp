@@ -1,18 +1,17 @@
 #include "AltitudeSystem.hpp"
 
-AltitudeSystem::AltitudeSystem(double initial_altitude)
-    : altitude_{initial_altitude} {}
+AltitudeSystem::AltitudeSystem(double initial_altitude, PhysicsConfig physics)
+    : altitude_{initial_altitude}
+    , physics_{physics} {}
 
 void AltitudeSystem::update(double throttle_command, double dt) {
-    // Net acceleration = thrust + gravity - drag
-    const double acceleration = (throttle_command * thrust_scale_)
+    const double acceleration = (throttle_command * physics_.thrust_scale)
                               + gravity_
-                              - (drag_ * velocity_);
+                              - (physics_.drag * velocity_);
 
     velocity_ += acceleration * dt;
     altitude_ += velocity_ * dt;
 
-    // Ground clamp — can't go below 0
     if (altitude_ < 0.0) {
         altitude_ = 0.0;
         velocity_ = 0.0;

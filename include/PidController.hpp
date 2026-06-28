@@ -8,6 +8,7 @@ struct PidConfig {
     double kd{0.0};   // Derivative gain
     double output_min{-1.0};  // Clamp output to avoid saturation
     double output_max{1.0};
+    double integral_max{10.0};
 };
 
 class PidController {
